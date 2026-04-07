@@ -2,23 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GN-Math Direct Loader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GN-Math Loader</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: #000; overflow: hidden; }
+        #content-frame { border: none; width: 100%; height: 100%; display: block; }
+        #error-msg { color: white; text-align: center; padding: 50px; font-family: sans-serif; display: none; }
+    </style>
 </head>
 <body>
+    <div id="error-msg">Loading failed. Your network may be blocking the game source.</div>
+    <iframe id="content-frame" src="https://jsdelivr.net" onerror="showError()"></iframe>
+
     <script>
-        (function() {
-            const url = "https://jsdelivr.net" + Date.now();
-            fetch(url)
-                .then(r => r.text())
-                .then(html => {
-                    // Fixes common 'hostname' and 'origin' errors
-                    const cleanHtml = html.replace(/new URL\(url, location\.origin\)\.hostname/g, '""');
-                    document.open();
-                    document.write(cleanHtml);
-                    document.close();
-                })
-                .catch(err => console.error("Failed to load:", err));
-        })();
+        function showError() {
+            document.getElementById('error-msg').style.display = 'block';
+            document.getElementById('content-frame').style.display = 'none';
+        }
+        
+        // Safety check: If screen stays white for more than 5 seconds, show a direct link
+        setTimeout(() => {
+            const frame = document.getElementById('content-frame');
+            try {
+                if (!frame.contentWindow || frame.contentWindow.length === 0) {
+                    showError();
+                }
+            } catch (e) {
+                // If we can't even check the frame, it's likely blocked by CORS
+                console.log("Access restricted by browser security.");
+            }
+        }, 5000);
     </script>
 </body>
 </html>
