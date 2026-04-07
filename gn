@@ -1,20 +1,24 @@
-(function() {
-    const targetUrl = "https://jsdelivr.net" + Date.now();
-
-    fetch(targetUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.text();
-        })
-        .then(html => {
-            document.open();
-            // Fixing hostname checks that sometimes block local execution
-            document.write(html.replace(/new URL\(url, location\.origin\)\.hostname/g, '""'));
-            document.close();
-        })
-        .catch(error => {
-            console.error('Fetch failed, trying fallback injection...', error);
-            // Fallback: If fetch is blocked, try an iframe approach
-            document.body.innerHTML = `<iframe src="${targetUrl}" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"></iframe>`;
-        });
-})();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GN-Math Direct Loader</title>
+</head>
+<body>
+    <script>
+        (function() {
+            const url = "https://jsdelivr.net" + Date.now();
+            fetch(url)
+                .then(r => r.text())
+                .then(html => {
+                    // Fixes common 'hostname' and 'origin' errors
+                    const cleanHtml = html.replace(/new URL\(url, location\.origin\)\.hostname/g, '""');
+                    document.open();
+                    document.write(cleanHtml);
+                    document.close();
+                })
+                .catch(err => console.error("Failed to load:", err));
+        })();
+    </script>
+</body>
+</html>
