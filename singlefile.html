@@ -819,7 +819,7 @@ const zonesurls = [
     "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets@master/zones.json",
     "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/assets/zones.json"
 ];
-let zonesURL = zonesurls[Math.floor(Math.random() * zonesurls.length)];
+let zonesURL = 'zones.json?t=' + Date.now();
 const coverURL = "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/%67%6e%2d%6d%61%74%68/html@main";
 let zones = [];
