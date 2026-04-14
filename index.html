@@ -1632,6 +1632,12 @@ function showZoneInfo() {
 function closePopup() {
     document.getElementById('popupOverlay').style.display = "none";
 }
+async function listZones() {
+  const testZones = [{"id":1,"name":"🕹️ Test Game","featured":true,"cover":"https://via.placeholder.com/300/fc2651/fff?text=PLAY","url":"data:text/html;base64,PCFET0NUWVBFIGh0bWw+PGgxIHN0eWxlPSdjb2xvcjp3aGl0ZTtmb250LWZhbWlseTpzYW5zO3RleHQtYWxpZ246Y2VudGVyJz5IVE1MICBGUkFNRVdPUkS8L2gxPjxkaXYgc3R5bGU9J3RleHQtYWxpZ246Y2VudGVyO2JhY2tncm91bmQ6I2ZjMjY1MTtwYWRkaW5nOjIwcHg7Ym9yZGVyLXJhZGl1czoxMHB4O2NvbG9yOndoaXRlO2ZvbnQtd2VpZ2h0OmJvbGQnPkNsaWNrIGFsbCBvdmVyIGZvciBhbGVydHMhIDxidXR0b24gb25jbGljaz1hbGVydCgiR29vZCBXYXkmISIpPkJvb20hPC9idXR0b24+PC9kaXY+PHNjcmlwdD5kb2N1bWVudC5ib2R5Lm9uY2xpY2s9KCk9PmFsZXJ0KCJCb29tIEJvb20iKTtjb25zb2xlLmxvZygiR29vZCBXYXkmISIpOzwvc2NyaXB0Pg==","special":["test"] }];
+  zones = testZones;
+  console.log("✅ Test zones LOADED!");
+  sortZones();
+}
 listZones();
 
 HTMLCanvasElement.prototype.toDataURL = function (...args) {
